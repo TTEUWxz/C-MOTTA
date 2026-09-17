@@ -355,7 +355,7 @@
      the INNER .panel-lock is the actual sticky 100vh frame — it only
      releases once scroll has moved through the whole outer box, so the
      panel sits still, fully on screen, for the length of the buffer. */
-  .stack-panel{ --lock:24vh; min-height:calc(100vh + var(--lock)); padding-block:0; }
+  .stack-panel{ --lock:24vh; min-height:calc(100vh + var(--lock)); padding-block:0; border-top:none; }
   .panel-lock{
     position:sticky; top:0;
     min-height:100vh;
@@ -917,11 +917,10 @@
             p.cur.style.opacity = '';
             return;
           }
-          var x = progress * -90;
+          var x = progress * -60;
           var y = progress * -22;
-          var rot = progress * -4;
-          var scale = 1 - progress * 0.07;
-          p.cur.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) rotate(' + rot + 'deg) scale(' + scale + ')';
+          var scale = 1 - progress * 0.05;
+          p.cur.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) scale(' + scale + ')';
           p.cur.style.opacity = String(1 - progress * 0.6);
         });
       }
