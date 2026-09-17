@@ -22,9 +22,6 @@
     --radius:20px;
     --radius-sm:12px;
     --radius-pill:999px;
-    --wash:
-      radial-gradient(ellipse 65% 55% at 12% -10%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%),
-      radial-gradient(ellipse 55% 45% at 100% 110%, color-mix(in srgb, var(--accent-2) 9%, transparent), transparent 70%);
     color-scheme: dark;
   }
 
@@ -89,18 +86,22 @@
   a{color:inherit}
   img,svg{max-width:100%}
 
-  /* ---------- ANIMATED BACKGROUND ---------- */
+  /* ---------- ANIMATED BACKGROUND ----------
+     One continuous fixed light layer sitting ABOVE every stacked panel
+     (but below the header/rail chrome) and blended with mix-blend-mode,
+     so the same glow reads through the whole site as you scroll instead
+     of each opaque section only showing its own separate background. */
   .bg-anim{
-    position:fixed; inset:0; z-index:-2; overflow:hidden;
+    position:fixed; inset:0; z-index:6; overflow:hidden;
     pointer-events:none;
   }
   .bg-anim span{
     position:absolute; border-radius:50%; filter:blur(70px);
-    opacity:.4; will-change:transform; mix-blend-mode:screen;
+    opacity:.32; will-change:transform; mix-blend-mode:screen;
   }
-  :root[data-theme="light"] .bg-anim span{ mix-blend-mode:multiply; opacity:.28 }
+  :root[data-theme="light"] .bg-anim span{ mix-blend-mode:multiply; opacity:.22 }
   @media (prefers-color-scheme:light){
-    :root:not([data-theme="dark"]) .bg-anim span{ mix-blend-mode:multiply; opacity:.28 }
+    :root:not([data-theme="dark"]) .bg-anim span{ mix-blend-mode:multiply; opacity:.22 }
   }
   .bg-anim .b1{width:50vw;height:50vw; left:-14%; top:-16%; background:radial-gradient(circle, var(--accent), transparent 70%); animation:float1 28s ease-in-out infinite}
   .bg-anim .b2{width:40vw;height:40vw; right:-10%; top:10%; background:radial-gradient(circle, var(--accent-2), transparent 70%); animation:float2 34s ease-in-out infinite}
@@ -363,9 +364,9 @@
     padding-block:clamp(56px, 8vw, 96px);
     will-change:transform, opacity;
   }
-  #sobre .panel-lock{z-index:2; background:var(--wash), var(--bg)}
-  #modelo .panel-lock{z-index:3; background:var(--wash), var(--surface)}
-  #areas .panel-lock{z-index:4; background:var(--wash), var(--bg)}
+  #sobre .panel-lock{z-index:2; background:var(--bg)}
+  #modelo .panel-lock{z-index:3; background:var(--bg)}
+  #areas .panel-lock{z-index:4; background:var(--bg)}
   .panel-lock > .wrap{width:100%}
   @media (max-width:920px){
     /* stacking reads as jumpy on short mobile viewports; fall back to normal flow */
@@ -378,9 +379,9 @@
      browser's default "non-positioned" layer, which sits BEHIND any positioned
      sibling (even one with a lower z-index), so the old panel would wrongly show
      through the incoming section while it slides up to cover it. */
-  #statsWrap{position:relative; z-index:2; background:var(--wash), var(--bg)}
-  #trajetoria{position:relative; z-index:5; background:var(--wash), var(--bg)}
-  #contato{position:relative; z-index:5; background:var(--wash), var(--bg)}
+  #statsWrap{position:relative; z-index:2; background:var(--bg)}
+  #trajetoria{position:relative; z-index:5; background:var(--bg)}
+  #contato{position:relative; z-index:5; background:var(--bg)}
   @media (max-width:920px){
     #statsWrap, #trajetoria, #contato{position:static}
     #statsWrap.full-bleed, #trajetoria.full-bleed, #contato.full-bleed{width:auto; margin-inline:0; padding-inline:0}
